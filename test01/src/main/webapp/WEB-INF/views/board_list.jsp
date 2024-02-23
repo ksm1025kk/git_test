@@ -217,8 +217,7 @@ input[type="button"]:hover {
 					<b>${p}</b>
 				</c:when>
 				<c:when test="${p != paging.nowPage}">
-					<span
-						onclick="location.href='board_list.do?nowPage=${p}&cntPerPage=${paging.cntPerPage}'">${p}</span>
+					<span onclick="location.href='board_list.do?nowPage=${p}&cntPerPage=${paging.cntPerPage}'">${p}</span>
 				</c:when>
 			</c:choose>
 		</c:forEach>
