@@ -226,5 +226,6 @@ input[type="button"]:hover {
 			<span onclick="location.href='board_list.do?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}'">&gt;</span>
 		</c:if>
 	</div>
+	리셋 되돌리기
 </body>
 </html>
