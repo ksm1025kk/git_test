@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 8) -->
+
+<mapper namespace="b">
+	<select id="countBoard1" resultType="int">
+		SELECT COUNT(*) FROM BOARD
+	</select>
+	<select id="countBoard2" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM BOARD WHERE m_idx = #{m_idx}
+	</select>
+	<select id="board_list" resultType="VO.BoardVO"
+		parameterType="VO.PagingVO">
+		<!-- SELECT B.b_idx, B.b_title, B.b_content, B.b_date, B.m_idx, M.m_id, 
+			B.b_auth FROM BOARD B INNER JOIN MEMBER M ON B.m_idx = M.m_idx ORDER BY B.b_date 
+			DESC -->
+		SELECT * FROM (
+		SELECT
+		@rownum := @rownum + 1 AS RN,
+		A.*
+		FROM (
+		SELECT
+		B.B_IDX,
+		B.B_TITLE,
+		B.B_CONTENT,
+		B.B_DATE,
+		B.M_IDX,
+		M.M_ID,
+		B.B_AUTH
+		FROM
+		BOARD B
+		INNER JOIN
+		MEMBER M ON B.M_IDX = M.M_IDX
+		ORDER BY ${orderby} DESC
+		) AS A
+		CROSS JOIN
+		(SELECT @rownum := 0) AS dummy
+		) AS result
+		WHERE
+		RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<select id="board_selectOne" resultType="VO.BoardVO"
+		parameterType="int">
+		SELECT B.b_idx, B.b_title, B.b_content, B.b_date,
+		B.m_idx, M.m_id, B.b_auth
+		FROM BOARD B INNER JOIN MEMBER M ON B.m_idx =
+		M.m_idx
+		WHERE b_idx = #{b_idx}
+	</select>
+
+	<insert id="board_insert" parameterType="VO.BoardVO">
+		INSERT INTO BOARD
+		VALUES(NULL, #{b_title}, #{b_content}, NOW(), #{m_idx}, 0)
+	</insert>
+
+	<select id="select_list_my_content" parameterType="VO.PagingVO"
+		resultType="VO.BoardVO">
+		<!-- SELECT
+		B.b_idx,
+		B.b_title,
+		B.b_content,
+		B.b_date,
+		B.m_idx,
+		M.m_id,
+		B.b_auth
+		FROM BOARD B INNER JOIN MEMBER M
+		ON B.m_idx = M.m_idx
+		WHERE M.m_idx = #{m_idx}
+		ORDER BY B.b_date DESC -->
+		SELECT * FROM (
+		SELECT
+		@rownum := @rownum + 1 AS RN,
+		A.*
+		FROM (
+		SELECT
+		B.B_IDX,
+		B.B_TITLE,
+		B.B_CONTENT,
+		B.B_DATE,
+		B.M_IDX,
+		M.M_ID,
+		B.B_AUTH
+		FROM
+		BOARD B
+		INNER JOIN
+		MEMBER M ON B.M_IDX = M.M_IDX
+		WHERE M.m_idx = #{m_idx}
+		ORDER BY ${orderby} DESC
+		) AS A
+		CROSS JOIN
+		(SELECT @rownum := 0) AS dummy
+		) AS result
+		WHERE
+		RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<update id="board_update" parameterType="VO.BoardVO">
+		UPDATE BOARD SET
+		b_title = #{b_title},
+		b_content = #{b_content},
+		b_date = NOW()
+		WHERE b_idx = #{b_idx}
+	</update>
+
+	<update id="board_delete" parameterType="int">
+		UPDATE BOARD SET
+		b_auth = 1
+		WHERE b_idx = #{b_idx}
+	</update>
+	
+	<select id="countBoard_b_title" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE b_title LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	<select id="countBoard_b_content" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE b_content LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	<select id="countBoard_m_id" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE m_idx IN(SELECT m_idx FROM MEMBER WHERE m_id LIKE CONCAT('%', #{keyword}, '%'))
+	</select>
+	
+	<select id="selectList_b_title" parameterType="VO.PagingVO" resultType="VO.BoardVO">
+		SELECT * FROM (
+		SELECT
+		@rownum := @rownum + 1 AS RN,
+		A.*
+		FROM (
+		SELECT
+		B.B_IDX,
+		B.B_TITLE,
+		B.B_CONTENT,
+		B.B_DATE,
+		B.M_IDX,
+		M.M_ID,
+		B.B_AUTH
+		FROM
+		BOARD B
+		INNER JOIN
+		MEMBER M ON B.M_IDX = M.M_IDX
+		WHERE B.B_TITLE LIKE CONCAT('%', #{keyword}, '%')
+		ORDER BY ${orderby} DESC
+		) AS A
+		CROSS JOIN
+		(SELECT @rownum := 0) AS dummy
+		) AS result
+		WHERE
+		RN BETWEEN #{start} AND #{end}
+	</select>
+	<select id="selectList_b_content" parameterType="VO.PagingVO" resultType="VO.BoardVO">
+		SELECT * FROM (
+		SELECT
+		@rownum := @rownum + 1 AS RN,
+		A.*
+		FROM (
+		SELECT
+		B.B_IDX,
+		B.B_TITLE,
+		B.B_CONTENT,
+		B.B_DATE,
+		B.M_IDX,
+		M.M_ID,
+		B.B_AUTH
+		FROM
+		BOARD B
+		INNER JOIN
+		MEMBER M ON B.M_IDX = M.M_IDX
+		WHERE B.B_CONTENT LIKE CONCAT('%', #{keyword}, '%')
+		ORDER BY ${orderby} DESC
+		) AS A
+		CROSS JOIN
+		(SELECT @rownum := 0) AS dummy
+		) AS result
+		WHERE
+		RN BETWEEN #{start} AND #{end}
+	</select>
+	<select id="selectList_m_id" parameterType="VO.PagingVO" resultType="VO.BoardVO">
+		SELECT * FROM (
+		SELECT
+		@rownum := @rownum + 1 AS RN,
+		A.*
+		FROM (
+		SELECT
+		B.B_IDX,
+		B.B_TITLE,
+		B.B_CONTENT,
+		B.B_DATE,
+		B.M_IDX,
+		M.M_ID,
+		B.B_AUTH
+		FROM
+		BOARD B
+		INNER JOIN
+		MEMBER M ON B.M_IDX = M.M_IDX
+		WHERE M.m_idx IN (SELECT m_idx FROM MEMBER WHERE M_ID LIKE CONCAT('%', #{keyword}, '%')) 
+		ORDER BY ${orderby} DESC
+		) AS A
+		CROSS JOIN
+		(SELECT @rownum := 0) AS dummy
+		) AS result
+		WHERE
+		RN BETWEEN #{start} AND #{end}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
