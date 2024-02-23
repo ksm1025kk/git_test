@@ -236,5 +236,13 @@ input[type="button"]:hover {
 			<span onclick="location.href='board_list.do?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}'">&gt;</span>
 		</c:if>
 	</div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	커밋2
+=======
+	커밋3
+>>>>>>> version2
+>>>>>>> version3
 </body>
 </html>
