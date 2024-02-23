@@ -102,14 +102,15 @@ input[type="button"]:hover {
 	<form>
 	<table border="1" align="center">
 		<tr>
-			<th colspan="4"><c:choose>
+			<th colspan="4">
+				<c:choose>
 					<c:when test="${empty account}">
 						<input type="button" value="로그인"
 							onclick="location.href='login_form.do'">
 						<input type="button" value="회원가입"
 							onclick="location.href='member_insert_form.do'">
 						<input type="button" value="게시물 작성"
-				onclick="location.href='board_insert_form.do'">
+							onclick="location.href='board_insert_form.do'">
 					</c:when>
 					<c:when test="${not empty account}">
 						<input type="button" value="${account.m_id}"
@@ -117,9 +118,10 @@ input[type="button"]:hover {
 						<input type="button" value="로그아웃"
 							onclick="location.href='logout.do'">
 						<input type="button" value="게시물 작성"
-				onclick="location.href='board_insert_form.do'">
+							onclick="location.href='board_insert_form.do'">
 					</c:when>
-				</c:choose></th>
+				</c:choose>
+			</th>
 		</tr>
 		<tr>
 			<td colspan="4" style="text-align: center;">
@@ -146,37 +148,38 @@ input[type="button"]:hover {
 		</tr>
 		<tr>
 			<td colspan="2">
-			<div class="ii">
-				<span style="padding-right: 10px;">총 게시물 <b style="color: red">${paging.total}</b> 건</span>
-				<span>현재 페이지 <b style="color: red">${paging.nowPage} / ${paging.lastPage}</b></span>
-			</div>
+				<div class="ii">
+					<span style="padding-right: 10px;">총 게시물 <b style="color: red">${paging.total}</b> 건</span>
+					<span>현재 페이지 <b style="color: red">${paging.nowPage} / ${paging.lastPage}</b></span>
+				</div>
 			</td>
 			<td>
 				<div class="ii">
 					<select id="sort" name="sort" onchange="selChange()">
-					<option value="b_date"<c:if test="${paging.orderby eq 'b_date'}">selected</c:if>>
-					최신순으로 보기	
-					</option>
-					<option value="b_idx"
-						<c:if test="${paging.orderby eq 'b_idx'}">selected</c:if>>글번호순으로 보기</option>
+						<option value="b_date" <c:if test="${paging.orderby eq 'b_date'}">selected</c:if>>
+						최신순으로 보기	
+						</option>
+						<option value="b_idx" <c:if test="${paging.orderby eq 'b_idx'}">selected</c:if>>
+						글번호순으로 보기
+						</option>
 					</select>
 				</div>
 			</td>
 				<td>
 					<div>
 					<select id="cntPerPage" name="sel" onchange="selChange()">
-					<option value="5"
-						<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5개씩
-						보기</option>
-					<option value="10"
-						<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10개씩
-						보기</option>
-					<option value="15"
-						<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15개씩
-						보기</option>
-					<option value="20"
-						<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20개씩
-						보기</option>
+						<option value="5"
+							<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5개씩
+							보기</option>
+						<option value="10"
+							<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10개씩
+							보기</option>
+						<option value="15"
+							<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15개씩
+							보기</option>
+						<option value="20"
+							<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20개씩
+							보기</option>
 					</select>
 				</div>
 			</td>
@@ -206,8 +209,7 @@ input[type="button"]:hover {
 	<!-- 페이지 선택 -->
 	<div class="paging">
 		<c:if test="${paging.startPage != 1}">
-			<span
-				onclick="location.href='board_list.do?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}'">&lt;</span>
+			<span onclick="location.href='board_list.do?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}'">&lt;</span>
 		</c:if>
 		<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
 			<c:choose>
@@ -221,8 +223,7 @@ input[type="button"]:hover {
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<span
-				onclick="location.href='board_list.do?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}'">&gt;</span>
+			<span onclick="location.href='board_list.do?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}'">&gt;</span>
 		</c:if>
 	</div>
 </body>
