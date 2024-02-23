@@ -95,7 +95,11 @@ input[type="button"]:hover {
 	    	search(document.querySelector("form"));
 	    }
 	});
+<<<<<<< HEAD
 	function version3(){
+=======
+	function version2(){
+>>>>>>> version2
 		
 	}
 </script>
