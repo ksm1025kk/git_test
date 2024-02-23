@@ -1,0 +1,10 @@
+diff a/test01/src/main/webapp/WEB-INF/views/board_list.jsp b/test01/src/main/webapp/WEB-INF/views/board_list.jsp	(rejected hunks)
+@@ -236,6 +236,6 @@
+ 			<span onclick="location.href='board_list.do?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}'">&gt;</span>
+ 		</c:if>
+ 	</div>
+-	리셋 되돌리기
++	커밋2
+ </body>
+ </html>
+\ No newline at end of file
