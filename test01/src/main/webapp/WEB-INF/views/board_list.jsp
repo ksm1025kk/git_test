@@ -95,7 +95,9 @@ input[type="button"]:hover {
 	    	search(document.querySelector("form"));
 	    }
 	});
-
+	function version4(){
+		
+	}
 </script>
 </head>
 <body>
