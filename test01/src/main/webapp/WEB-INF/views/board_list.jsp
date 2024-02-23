@@ -178,7 +178,6 @@ input[type="button"]:hover {
 						<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20개씩
 						보기</option>
 					</select>
-					
 				</div>
 			</td>
 		</tr>
