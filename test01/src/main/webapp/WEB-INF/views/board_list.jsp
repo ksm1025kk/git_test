@@ -96,10 +96,14 @@ input[type="button"]:hover {
 	    }
 	});
 <<<<<<< HEAD
+<<<<<<< HEAD
 	function version3(){
 =======
 	function version2(){
 >>>>>>> version2
+=======
+	function version4(){
+>>>>>>> version4
 		
 	}
 </script>
